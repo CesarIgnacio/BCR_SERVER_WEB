@@ -9,19 +9,25 @@ header.header
       li.nav__item 
         a.nav__link(href='#section--3') Past/Current Projects 
       li.nav__item
-        a.nav__link(href='#section--4') Get Involved Now
+        //- a.nav__link(href='#section--4') Get Involved Now
+        label.nav__link Media Files
+        select
+          option(value='' selectd disabled) Media
+          option(value="image") Image
+          option(value="video") Video
+          option(value="audio") Audio  
       li.nav__item 
         a.nav__link.nav__link--btn.btn--show-modal(href='#') Log In
 
   .header__title 
     h1 
-      span.highlight Did 
-      | you<br>
-      span.highlight Know?
+      span.highlight Did
+      |  you<br>
+      span.highlight know?
     
     h4 There are Monk Parakeet and Fiddle Crabs in New York City
     button.btn--text.btn--scroll-to Learn more &DownArrow;
-    //- .images
+    
     img.header__img(src='/images/hero.png' alt='Minimalist bird items')
     img(src='images/Fiddler-Crabs.jpg' alt='Minimalist crabs items')
   

@@ -7,177 +7,13 @@ html(lang="en")
 
     title Add File #{tittle}
     link(rel='stylesheet' type='text/css' href='stylesheets/tester.css')
-    
-    //- style.
-    //-   /*custom font*/
-    //-   @import url(https://fonts.googleapis.com/css?family=Montserrat);
-    //-   /*Color palete*/
-    //-   :root {
-    //-     --color-secondary:  #ffcb03;
-    //-     --color-secondary-opacity: #ffcd0331;
-    //-   }
-        
-    //-   html {        
-    //-     background: linear-gradient(rgba(94, 197, 118, 0.6), rgba(255, 203, 3, 0.4));
-    //-     font-family: montserrat, arial, verdana;
-    //-   }
-
-    //-   /*Back Button*/
-    //-   .back {
-    //-     display: flex;
-    //-     justify-content: flex-start;
-    //-   }
-    //-   .btn {
-    //-     padding: 0.8rem 2.5rem;
-    //-     background-color: var(--color-secondary);
-    //-     border: 0;
-    //-     font-size: medium;
-    //-     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-    //-   }
-    //-   .btn:hover {
-    //-     background-color: var(--color-secondary-opacity);
-    //-   }
-    //-   a {
-    //-     text-decoration: none;
-    //-     color: white;
-    //-   }
-    //-   h1 { 
-    //-     text-align: center;
-    //-     margin-top: 0;
-    //-   }
-
-    //-   /*form styles*/
-    //-   .formbox {
-    //-     display: flex;
-    //-     justify-content: center;
-    //-   }
-    //-   form {
-    //-     width: 600px;
-    //-     text-align: center;
-    //-     display: flex;
-    //-     justify-content: center;
-    //-   } 
-    //-   fieldset {
-    //-     background: white;
-    //-     border: 0 none;
-    //-     border-radius: 3px;
-    //-     box-shadow: 0 0 15px 1px rgba(0, 0, 0, 0.4);
-    //-     padding: 20px 30px;
-    //-     box-sizing: border-box;
-    //-     width: 530px;
-    //-   }
-      
-    //-   /*inputs*/
-    //-   .input {
-    //-     padding: 15px;
-    //-     border: 1px solid #ccc;
-    //-     border-radius: 3px;
-    //-     margin-bottom: 10px;
-    //-     width: 100%;
-    //-     box-sizing: border-box;
-    //-     font-family: montserrat;
-    //-     color: #2C3E50;
-    //-     font-size: 13px;
-    //-   }
-        
-    //-   input::file-selector-button {
-    //-     padding: 10px;
-    //-     border: 1px solid #ccc;
-    //-     border-radius: 3px;
-    //-     box-sizing: border-box;
-    //-     font-family: montserrat;
-    //-     color: #2C3E50;
-    //-     font-size: 13px;
-    //-   }
-    //-   /*inputs: eliminates spinners in Chrome, Safary, Edge, Opera*/
-    //-   .input::-webkit-inner-spin-button,
-    //-   .input::-webkit-outer-spin-button {
-    //-     -webkit-appearance: none;
-    //-     margin: 0;
-    //-   }
-    //-   /*inputs: eliminates spinners in Firefox*/
-    //-   .input[type=number] {
-    //-     -moz-appearance: textfield;
-    //-   }
-
-    //-   /*button*/
-    //-   button {
-    //-     width: 100px;
-    //-     background: #27AE60;
-    //-     color: white;
-    //-     border: 0 none;
-    //-     border-radius: 1px;
-    //-     cursor: pointer;
-    //-     padding: 10px;
-    //-     margin: 10px 5px;
-    //-     text-decoration: none;
-    //-     font-size: 14px;
-    //-   }
-      
-    //-   button:hover,
-    //-   button:focus {
-    //-     background: var(--color-secondary-opacity);
-    //-   }
-
-    //-   /*Select and Option*/
-    //-   select {
-    //-     background-color: white;
-    //-   }
-      
-    //-   option {
-    //-     background-color: white;
-    //-     font-family: montserrat, arial, verdana !important;
-    //-     color: #666;
-    //-   }
-        
-    //-   /*Text area*/
-    //-   textarea {
-    //-     resize: vertical;
-    //-     max-height: 140px;
-    //-     min-height: 60px;
-    //-   }
-      
-    //-   /*headings*/
-    //-   h2 {
-    //-     font-size: 15px;
-    //-     text-transform: uppercase;
-    //-     color: #2C3E50;
-    //-     margin-bottom: 10px;
-    //-   }
-      
-    //-   h3 {
-    //-     font-weight: normal;
-    //-     font-size: 13px;
-    //-     color: #666;
-    //-     margin-bottom: 10px;
-    //-     margin-top: 20px;
-    //-   }
-
-    //-   #incomplete {
-    //-     color: red;
-    //-   }
-
-    //-   .twoInputs {
-    //-     display: flex;
-    //-     flex-direction: row;
-    //-     justify-content: space-between;
-    //-     gap: 5px;
-    //-   }
-    //-   #acronym { width: 64px; }
-
-    //-   /*For time input elements - works better in Chrome*/
-    //-   input[type='time']:before {
-    //-     content: attr(placeholder);
-    //-     -moz-appearance: none;
-    //-   }
-      
 
   body
     .back
       a.btn(href='../options') Back
     h1 
-      span.highlight Upload 
-      | a file
+      span.highlight Upload
+      |  a file
     .formbox
       form#msform(onSubmit = 'return true' method='POST' action='' enctype='multipart/form-data')
         fieldset
@@ -205,15 +41,15 @@ html(lang="en")
             input#zipcode.input(type='number' name='zipcode' placeholder='Zip Code')
             input#country.input(type="text" name='country' placeholder='Country' value='USA')
           //- input#address.input(type='text' placeholder='Ex.: 123 N. Main St., Brooklyn, NY 12345' name='address' value = '123 N. Main St., Brooklyn, NY 12345')
-          h3.fs-subtitle Step 5: Date and start/end time of sighting 
+          h3.fs-subtitle Step 5: Date and time of sighting 
           .threeInputs
             input#sdate.input(type='date' name='sdate')
-            .setTime
-              span.timeLabel Start time 
-              input#stime.input(type='time' name='stime')
-            .setTime
-              span.timeLabel End time
-              input#etime.input(type='time' name='etime')
+            //- .setTime
+            //-   span.timeLabel Start time 
+            input#stime.input(type='time' name='stime')
+            //- .setTime
+            //-   span.timeLabel End time
+            //-   input#etime.input(type='time' name='etime')
           h3.fs-subtitle Step 6: Select type of file
           select#filename.input(name="filetypes" placeholder = "file types")
             option(value='' selected disabled)
@@ -229,11 +65,6 @@ html(lang="en")
           #incomplete
           button#action-button.action-button(type='submit') Submit
     
-    //- #hidden
-    //-   p.message
-    //-     span You 
-    //-     | have successfuly uploaded a file to our database
-    //-   button#done Done
 
     script(type='text/javascript' defer = '').
       const firstName = document.getElementById('fname');
@@ -247,43 +78,22 @@ html(lang="en")
       const state = document.getElementById('state');
       const zipcode = document.getElementById('zipcode');
       const country = document.getElementById('country');
-      //- const address = document.getElementById('address');
       const upload = document.getElementById('upload');
       const submit = document.getElementById('action-button');
       const inputs = document.querySelectorAll('.input');
       const form = document.getElementById('msform');
       const sdate = document.getElementById('sdate');
       const stime = document.getElementById('stime');
-      const etime = document.getElementById('etime');
+      //- const etime = document.getElementById('etime');
       const filename = document.getElementById('filename');
       const incomplete = document.getElementById('incomplete');
       const errors = false;
-      
-      /////////////////////////////////////
-      // Modal - Hidden success message
-
-      //- const hidden = document.getElementById('hidden');
-      //- const done = document.getElementById('done');
-
-      //- const openModal = function (e) {
-      //-   hidden.style.display = 'flex';
-      //- };
-
-
-      //- submit.addEventListener('sumbit', openModal);
-
-      //- // Close popup message. Redirecting to Options page
-      //- done.addEventListener('click', () => {
-      //-   hidden.style.display = 'none';
-      //-   document.location.href = "/options";
-      //- });
-
 
       ////////////////////////////////////////////////////
       // Setting date's input box initial value to today's
       sdate.valueAsDate = new Date();
       stime.value = '10:00';
-      etime.value = '13:00';
+      //- etime.value = '13:00';
 
       //////////////////////
       // Input validation //
@@ -348,8 +158,8 @@ html(lang="en")
           e.preventDefault();
           messages.push('*Country Required. Check format - Step 4');
         }
-        // Evaluate 'sdate' 'stime' and 'etime' input fields
-        if(sdate.value === '' || stime.value === '' || etime.value === '')
+        // Evaluate 'sdate' and 'stime' input fields
+        if(sdate.value === '' || stime.value === '')
         {
           e.preventDefault();
           messages.push('*Date, start and end times Required - Step 5');
@@ -431,13 +241,3 @@ html(lang="en")
         option.text = state;
         selectstate.appendChild(option);
       }
-      
-      
-
-
-
-//- if errors
-//-  error.msg
-
-
-
