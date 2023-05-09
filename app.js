@@ -6,12 +6,12 @@ var bcrypt = require('bcrypt');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 const mongoose = require('mongoose');
+const compression = require("compression");
 
 const dataController = require('./controllers/dataController');
-var dataRouter = require('./controllers/dataRouter');
+var dataRouter = require('./routes/dataRouter');
 
 var viewsRouter = require('./routes/viewsRoutes');
-var usersRouter = require('./routes/users');
 var searchRouter = require('./routes/searchRouter');
 var addRouter = require('./routes/addRouter');
 var deleteRouter = require('./routes/deleteRouter');
@@ -25,7 +25,6 @@ var uploadFailRouter = require('./routes/uploadFailRouter');
 const userSchema = require('./models/Users');
 
 
-const compression = require("compression");
 
 // IN-PROGRESS - ABRAR
 // const helmet = require("helmet");
@@ -61,7 +60,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'dev-data')));
 
 app.use('/', viewsRouter);
-app.use('/users', usersRouter);
 app.use('/search', searchRouter);
 app.use('/options', dataRouter);
 app.use('/add', addRouter);
