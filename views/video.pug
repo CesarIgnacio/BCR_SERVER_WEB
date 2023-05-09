@@ -1,0 +1,61 @@
+doctype html
+html(lang="en")
+  head
+    meta(charset="UTF-8")
+    meta(http-equiv="X-UA-Compatible", content="IE=edge")
+    meta(name="viewport", content="width=device-width, initial-scale=1.0")
+    title ${title}
+    link(rel="stylesheet" href="stylesheets/video.css" type="text/css")
+    script(src='javascripts/video.js' type='text/javascript' difer)
+  body 
+
+    header 
+      .back
+        a.btn(href='/') Back
+      h1
+        span.highlight All
+        |  our 
+        span.highlight videos
+      
+
+    .container 
+      .main-video-container 
+        video(src="images/vid-1.mp4" loop controls class="main-video") 
+        h3.main-vid-title house flood animation
+
+      .video-list-container 
+        .list.active 
+          video(src="images/vid-1.mp4" class="list-video") 
+          h3.list-title zoombie walking animation
+        
+        .list 
+          video.list-video(src="images/vid-2.mp4")
+          h3.list-title 3D helicopter animation
+
+        .list 
+          video.list-video(src="images/vid-3.mp4")
+          h3.list-title emoji falling animation
+        
+        .list 
+          video.list-video(src="images/vid-4.mp4")
+          h3.list-title 3D town animation
+        
+        .list 
+          video.list-video(src="images/vid-5.mp4")
+          h3.list-title man chasing carrot animation
+
+        .list 
+          video.list-video(src="images/vid-6.mp4")
+          h3.list-title door hinge animation
+
+        .list 
+          video.list-video(src="images/vid-7.mp4")
+          h3.list-title poeple walking in town animation
+
+        .list 
+          video.list-video(src="images/vid-8.mp4")
+          h3.list-title knight chasing virus animation
+
+        .list 
+          video.list-video(src="images/vid-9.mp4")
+          h3.list-title 3D helicopter animation

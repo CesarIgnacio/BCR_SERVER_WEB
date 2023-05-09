@@ -3,22 +3,16 @@
 
 :root {
   --color-primary: #5ec576;
-  --color-primary-darker: #4bbb7d;
   --color-secondary: #ffcb03;
+  --color-tertiary: #ff585f;
+  --color-primary-darker: #4bbb7d;
+  --color-secondary-darker: #ffbb00;
+  --color-tertiary-darker: #fd424b;
+  --color-primary-opacity: #5ec5763a;
   --color-secondary-opacity: #ffcd0331;
-  --color-labels: #666;
+  --color-tertiary-opacity: #ff58602d;
   --gradient-primary: linear-gradient(to top left, #39b385, #9be15d);
-  --height-labels: 37px;
-}
-
-* {
-  box-sizing: border-box;
-}
-
-body {
-  margin: 0;
-  font-family: montserrat, arial, verdana;
-  background-color: #f6f7f8;
+  --gradient-secondary: linear-gradient(to top left, #ffb003, #ffcb03);
 }
 
 /* header {
@@ -72,51 +66,4 @@ h1 {
   text-align: center;
   margin-top: 0;
   margin-bottom: 5px;
-}
-
-
-/* -------------- */
-/* Images display */
-/* -------------- */
-.row {
-  display: -ms-flexbox;
-  display: flex;
-  -ms-flex-wrap: wrap;
-  flex-wrap: wrap;
-  padding: 0 4px;
-  height: 100px;
-}
-
-.column {
-  -ms-flex: 25%;
-  flex: 25%;
-  max-width: 25%;
-  padding: 0 4px;
-}
-
-.column img {
-  margin-top: 8px;
-  vertical-align: middle;
-  width: 100%;
-}
-
-/* Responsive layout */
-/* Makes a two column-layout instead of four columns */
-@media screen and (max-width: 800px) {
-  .column {
-    -ms-flex: 50%;
-    flex: 50%;
-    max-width: 50%;
-  }
-}
-
-/* Responsive layout */
-/* Makes the two columns stack on top of each other 
-instead of next to each other */
-@media screen and (max-width: 600px) {
-  .column {
-    -ms-flex: 100%;
-    flex: 100%;
-    max-width: 100%;
-  }
 }

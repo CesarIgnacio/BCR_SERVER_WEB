@@ -8,18 +8,19 @@ header.header
         a.nav__link(href='#section--2') Fiddle Crabs
       li.nav__item 
         a.nav__link(href='#section--3') Past/Current Projects 
-      li.nav__item
-        //- a.nav__link(href='#section--4') Get Involved Now
-        label.nav__link Media Files
-        select
-          option(value='' selectd disabled) Media
-          option(value="image") Image
-          option(value="video") Video
-          option(value="audio") Audio  
+      li.nav__item.dropdown
+        button.dropbtn.nav__link Media Files
+        .dropdown-content
+          a(href="image") Images 
+          a(href="audio") Audios 
+          a(href="video") Videos
       li.nav__item 
         a.nav__link.nav__link--btn.btn--show-modal(href='#') Register
       li.nav__item 
-        a.nav__link.nav__link--btn.btn--show-modalLogin(href='#') Log in mi amour
+        a.nav__link.nav__link--btn.btn--show-modalLogin(href='#') Log in
+      li.nav__item 
+        a.nav__link.nav__link--btn(href='options')
+          img.nav__option__icon(src="images/menu.png", alt="option-icon")
 
   .header__title 
     h1 
@@ -33,8 +34,5 @@ header.header
     img.header__img(src='/images/hero.png' alt='Minimalist bird items')
     img(src='images/Fiddler-Crabs.jpg' alt='Minimalist crabs items')
   
-    nav.buttons 
-      a(href='options') Buttons 
-      a(href="image") Images 
 
 
