@@ -2,6 +2,7 @@ var createError = require('http-errors');
 var express = require('express');
 var app = express();
 var path = require('path');
+var bcrypt = require('bcrypt');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 const mongoose = require('mongoose');
@@ -17,10 +18,36 @@ var deleteRouter = require('./routes/deleteRouter');
 var videoRouter = require('./routes/videoRouter');
 var audioRouter = require('./routes/audioRouter');
 var imageRouter = require('./routes/imageRouter');
+var deleteRouter = require('./routes/deleteRouter');
 var uploadSuccessRouter = require('./routes/uploadSuccessRouter');
 var uploadFailRouter = require('./routes/uploadFailRouter');
 
+const userSchema = require('./models/Users');
 
+
+const compression = require("compression");
+var app = express();
+const helmet = require("helmet");
+const RateLimit = require("express-rate-limit");
+const limiter = RateLimit({
+  windowMs: 1 * 60 * 1000, // 1 minute
+  max: 20,
+})
+
+const mongoose = require('mongoose');
+const dataController = require('./controllers/dataController');
+
+app.use(compression());
+
+
+
+app.use(
+  helmet.contentSecurityPolicy({
+    directives: {
+      "script-src": ["'self'", "code.jquery.com", "cdn.jsdelivr.net"],
+    },
+  })
+);
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
@@ -45,11 +72,13 @@ app.use('/delete', deleteRouter)
 app.use('/image', imageRouter);
 app.use('/audio', audioRouter);
 app.use('/video', videoRouter);
+app.use('/delete', deleteRouter);
 app.use('/upload-success', uploadSuccessRouter);
 app.use('/upload-fail', uploadFailRouter);
 
 // Displays the images, videos, and audio individually
 // Avoids the need of crating aa separate routing page
+// Rendering page mediaDisplay.pug - CIP
 app.use('/media-display/:display', (req, res) => {
   const { display } = req.params;
   res.render('mediaDisplay.pug', {
@@ -59,12 +88,40 @@ app.use('/media-display/:display', (req, res) => {
 });
 
 
+
 app.use('/images', express.static(__dirname + '/assets/images'));
 
 
 // app.use('/images', express.static(__dirname + '/assets/images'));
 
 
+
+// To link button.pug page from _header.pug
+// app.get(__dirname + '/views/button', (req, res) => {
+//   res.render('buttons');
+// });
+
+app.post('/register', async (req, res) => {
+  res.status(200).render('overview', { title: 'overview' });
+  var hashedPasswords;
+  var hashedPassword = await bcrypt.hash(req.body.password, 10);
+  bcrypt.hash(req.body.password, 10, function (err, hash) { hashedPassword = hash });
+
+
+  //	{bcrypt.hash(req.body.password, salt, function(err, hash)=>{})
+  //};
+  const user = new userSchema(
+    {
+      firstName: req.body.fname,
+      lastName: req.body.lname,
+      email: req.body.email,
+      password: hashedPassword,
+      TLA: req.body.TLA,
+      role: 'visitor'
+    })
+  console.log(hashedPassword);
+  user.save();
+})
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
@@ -83,11 +140,19 @@ app.use(function (err, req, res, next) {
 });
 
 mongoose.set('strictQuery', false);
-const mongoDB = "mongodb+srv://abrar_fahim20:Sakib43st@cluster0.n9faamf.mongodb.net/?retryWrites=true&w=majority";
-
+const dev_db_url = "mongodb+srv://abrar_fahim20:Sakib43st@cluster0.n9faamf.mongodb.net/?retryWrites=true&w=majority";
+const mongoDB = process.env.MONGODB_URI || dev_db_url;
 //connect to the database with mongoose
 main().catch(err => console.log(err));
 async function main() {
   await mongoose.connect(mongoDB);
 }
+
+const port = process.env.PORT || 3000;
+// start the server to listen using express
+app.listen(port, '0.0.0.0', () => {
+  //if (process.env.NODE_ENV === 'development') {
+  console.log(`The Server is UP and Running in port http://localhost:${port}\n`);
+  //}
+});
 module.exports = app;

@@ -51,6 +51,7 @@ const audioUpload = multer({
 //const vidUpload;
 //const audioUpload;
 exports.getOptions = (req, res) => {
+
 	res.redirect = false;
 	res.status(200).render('buttons', { title: 'buttons' });
 };
@@ -60,7 +61,7 @@ exports.queryOptionsGet = (req, res) => {
 };
 
 exports.deleteGet = (req, res) => {
-	res.send("Not Implemented yet");
+	res.status(200).render('delete', {title: 'delete'});
 };
 
 
@@ -84,18 +85,32 @@ exports.sendImage = (req, res) => {
 
 // Sends data to Search page
 exports.queryOptionsPost = (req, res) => {
+	//variables referring to different attributes
 	let name;
 	let startDate;
 	let endDate;
 	let lat;
 	let longitude;
+	let endLat;
+	let endLong;
+	//initial query variable contains all animalSchema objects
 	let query = animalSchema.find({});
+	//The following if else statements initialize the varibales above and updates the query variable based
+	//on the input.
 	if (!req.body.animallist) {
 	}
 	else {
 		name = req.body.animallist
 		query = animalSchema.find({ animalName: name });
 
+	}
+	if(!req.body.fileType)
+	{
+        
+	}
+	else
+	{
+		query = query.find({mediaType: req.body.fileType});
 	}
 	if (!req.body.startDate) {
 		startDate = '1000-12-31';
@@ -109,27 +124,52 @@ exports.queryOptionsPost = (req, res) => {
 	else {
 		endDate = req.body.endDate;
 	}
-	query.find({
+	query = query.find({
 		date: {
 			"$gte": `${startDate}T00:00:00.000Z`, "$lte":
 				`${endDate}T00:00:00.000Z`
 		}
 	});
-	if (!req.body.latitude) {
+	
+	if (!req.body.latitude) 
+	{
+       lat = -90;
 	}
-	else {
+	else 
+	{
 		lat = req.body.latitude;
-		query.find({ 'location.latitude': lat });
+		//query = query.find({ 'location.latitude': lat });
 	}
-	if (!req.body.longitude) {
+	if(!req.body.endlatitude)
+	{
+		endLat = 90;
+	}	
+	else
+	{
+		endLat = req.body.endlatitude;
+	}
+	query = query.find({'location.latitude': {"$gte": `${lat}`, "$lte": `${endLat}`}});
+	
+	if (!req.body.longitude)
+	{
+		longitude = -180;
 	}
 	else {
 		longitude = req.body.longitude;
-		query.find({ 'location.longitude': longitude });
 	}
-	query = query.then((response) => {
+	if(!req.body.endlongitude)
+	{
+		endLat = 180;
+	}
+	else
+	{
+		endLat = req.body.endlongitude;
+	}
+
+	query = query.find({ 'location.longitude': {"$gte": `${longitude}`, "$lte": `${endLong}`} });
+
+	query.then((response) => {
 		console.log('\n\n\nSending data to Search page\n.\n.\n.');
-		console.log(response);
 		res.render('search', { data: response })
 	});
 
@@ -160,7 +200,7 @@ exports.addDataPost = async (req, res) => {
 				},
 				location:
 				{
-					address: req.body.address,
+					address: `${req.body.street} ${req.body.city} ${req.body.state} ${req.body.zipcode} ${req.body.country}`, 
 					latitude: req.body.latitude,
 					longitude: req.body.longitude
 				},
@@ -170,6 +210,7 @@ exports.addDataPost = async (req, res) => {
 			});
 			try {
 				await data.save();
+				console.log(data);
 				res.redirect('/upload-success');
 			}
 			catch (saveErr) {
@@ -183,6 +224,71 @@ exports.addDataPost = async (req, res) => {
 };
 
 exports.deletePost = (req, res) => {
-	res.send("Not Implemented yet");
+	let name;
+	let startDate;
+	let endDate;
+	let lat;
+	let longitude;
+	let query = animalSchema.find({});
+	if(!req.body.animallist)
+	{
+	}
+	else
+	{
+		name = req.body.animallist
+		query = animalSchema.find({animalName: name});
+
+	}
+	if(!req.body.fileType)
+	{
+
+	}
+	else
+	{
+		query = query.find({mediaType: req.body.fileType});
+	}
+	if(!req.body.startDate)
+	{
+		startDate = '1000-12-31';
+	}
+	else
+	{
+		startDate = req.body.startDate;
+	}
+	if(!req.body.endDate)
+	{
+		endDate = '3000-12-31';
+	}
+	else
+	{
+		endDate = req.body.endDate;
+	}
+	query = query.find({ date:{"$gte": `${startDate}T00:00:00.000Z`, "$lte":
+	`${endDate}T00:00:00.000Z`}});
+	if(!req.body.latitude)
+	{		
+	}
+	else
+	{
+		lat = req.body.latitude;
+		//query = query.find({ 'location.latitude' : lat});
+	}
+	if(!req.body.endlatitude)
+	{
+
+	}
+	if(!req.body.longitude)
+	{
+	}
+	else
+	{
+		longitude = req.body.longitude;
+		query.find({ 'location.longitude' : longitude});
+	}
+	query = query.then((response) => {console.log(response);
+		res.render('delete', {data: response} )});
 };
 
+exports.removeFromDB = (req, res) => {
+	res.status(200).render('delete', {title: 'delete'});
+};

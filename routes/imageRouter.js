@@ -14,6 +14,7 @@ fs.readdirSync('./dev-data/img').forEach(file => {
 
 // Root address. Authentication and Render Overview
 //Routes HTTP GET requests to the specified path with the specified callback functions.
+
 // Sends the array of images name to image.pug file
 router.get('/', (req, res) => {
 	// Create 4 lists dividing each image.
@@ -23,6 +24,5 @@ router.get('/', (req, res) => {
 	}
 	res.status(200).render('image', { data: listOfColumns });
 });
-
 //Export the entire module
 module.exports = router;
