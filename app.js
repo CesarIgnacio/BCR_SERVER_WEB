@@ -26,28 +26,25 @@ const userSchema = require('./models/Users');
 
 
 const compression = require("compression");
-var app = express();
-const helmet = require("helmet");
-const RateLimit = require("express-rate-limit");
-const limiter = RateLimit({
-  windowMs: 1 * 60 * 1000, // 1 minute
-  max: 20,
-})
 
-const mongoose = require('mongoose');
-const dataController = require('./controllers/dataController');
+// IN-PROGRESS - ABRAR
+// const helmet = require("helmet");
+// const RateLimit = require("express-rate-limit");
+// const limiter = RateLimit({
+//   windowMs: 1 * 60 * 1000, // 1 minute
+//   max: 20,
+// })
 
-app.use(compression());
+// app.use(compression());
 
+// app.use(
+//   helmet.contentSecurityPolicy({
+//     directives: {
+//       "script-src": ["'self'", "code.jquery.com", "cdn.jsdelivr.net"],
+//     },
+//   })
+// );
 
-
-app.use(
-  helmet.contentSecurityPolicy({
-    directives: {
-      "script-src": ["'self'", "code.jquery.com", "cdn.jsdelivr.net"],
-    },
-  })
-);
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
