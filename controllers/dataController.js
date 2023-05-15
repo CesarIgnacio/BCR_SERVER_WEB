@@ -101,7 +101,7 @@ exports.queryOptionsPost = (req, res) => {
 	}
 	else {
 		name = req.body.animallist
-		query = animalSchema.find({ animalName: name });
+		query = query.find({ animalName: name });
 
 	}
 	if(!req.body.fileType)
@@ -130,7 +130,7 @@ exports.queryOptionsPost = (req, res) => {
 				`${endDate}T00:00:00.000Z`
 		}
 	});
-	
+	//Error starts here
 	if (!req.body.latitude) 
 	{
        lat = -90;
@@ -159,15 +159,16 @@ exports.queryOptionsPost = (req, res) => {
 	}
 	if(!req.body.endlongitude)
 	{
-		endLat = 180;
+		
+		endLong = 180;
 	}
 	else
 	{
-		endLat = req.body.endlongitude;
+		endLong = req.body.endlongitude;
 	}
 
 	query = query.find({ 'location.longitude': {"$gte": `${longitude}`, "$lte": `${endLong}`} });
-
+//Error ends here
 	query.then((response) => {
 		console.log('\n\n\nSending data to Search page\n.\n.\n.');
 		res.render('search', { data: response })
