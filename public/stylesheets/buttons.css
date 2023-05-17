@@ -67,6 +67,21 @@ h1 {
 	background-color: rgba(94, 197, 118, .7);
 }
 
+.delBtn {
+	padding: 0.8rem 2.5rem;
+	background-color: red;
+	color: #222;
+	border: 0;
+	color: white;
+	font-size: medium;
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+	text-decoration: none;
+}
+
+.delBtn:hover {
+	background-color: rgba(197, 10, 10, .7);
+}
+
 div {
 	display: flex;
 	justify-content: center;

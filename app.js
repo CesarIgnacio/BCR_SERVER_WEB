@@ -1,44 +1,49 @@
 var createError = require('http-errors');
 var express = require('express');
+var app = express();
 var path = require('path');
 var bcrypt = require('bcrypt');
 var cookieParser = require('cookie-parser');
-var logger = require('morgan')
-var dataRouter = require('./controllers/dataRouter');
+var logger = require('morgan');
+const mongoose = require('mongoose');
+const compression = require("compression");
+
+const dataController = require('./controllers/dataController');
+var dataRouter = require('./routes/dataRouter');
+
 var viewsRouter = require('./routes/viewsRoutes');
-var usersRouter = require('./routes/users');
 var searchRouter = require('./routes/searchRouter');
 var addRouter = require('./routes/addRouter');
+var deleteRouter = require('./routes/deleteRouter');
 var videoRouter = require('./routes/videoRouter');
 var audioRouter = require('./routes/audioRouter');
 var imageRouter = require('./routes/imageRouter');
 var deleteRouter = require('./routes/deleteRouter');
-const userSchema = require('./models/Users');
 var uploadSuccessRouter = require('./routes/uploadSuccessRouter');
 var uploadFailRouter = require('./routes/uploadFailRouter');
-const compression = require("compression");
-var app = express();
-const helmet = require("helmet");
-const RateLimit = require("express-rate-limit");
-const limiter = RateLimit({
-  windowMs: 1 * 60 * 1000, // 1 minute
-  max: 20,
-})
 
-const mongoose = require('mongoose');
-const dataController = require('./controllers/dataController');
-
-app.use(compression());
+const userSchema = require('./models/Users');
 
 
 
-app.use(
-  helmet.contentSecurityPolicy({
-    directives: {
-      "script-src": ["'self'", "code.jquery.com", "cdn.jsdelivr.net"],
-    },
-  })
-);
+// IN-PROGRESS - ABRAR
+// const helmet = require("helmet");
+// const RateLimit = require("express-rate-limit");
+// const limiter = RateLimit({
+//   windowMs: 1 * 60 * 1000, // 1 minute
+//   max: 20,
+// })
+
+// app.use(compression());
+
+// app.use(
+//   helmet.contentSecurityPolicy({
+//     directives: {
+//       "script-src": ["'self'", "code.jquery.com", "cdn.jsdelivr.net"],
+//     },
+//   })
+// );
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
@@ -55,10 +60,10 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'dev-data')));
 
 app.use('/', viewsRouter);
-app.use('/users', usersRouter);
 app.use('/search', searchRouter);
 app.use('/options', dataRouter);
 app.use('/add', addRouter);
+app.use('/delete', deleteRouter)
 app.use('/image', imageRouter);
 app.use('/audio', audioRouter);
 app.use('/video', videoRouter);
@@ -66,7 +71,8 @@ app.use('/delete', deleteRouter);
 app.use('/upload-success', uploadSuccessRouter);
 app.use('/upload-fail', uploadFailRouter);
 
-
+// Displays the images, videos, and audio individually
+// Avoids the need of crating aa separate routing page
 // Rendering page mediaDisplay.pug - CIP
 app.use('/media-display/:display', (req, res) => {
   const { display } = req.params;
@@ -74,17 +80,9 @@ app.use('/media-display/:display', (req, res) => {
     title: "Media Display",
     display,
   });
-})
+});
 
 
-// ***** DELETE THIS ? *****
-// To display the pictures
-// gotten from: https://stackoverflow.com/questions/49945339/inserting-image-in-pug-template-engine
-// don't know if works
-//app.use('pictures', express.static(process.cwd() + 'pictures'));
-//app.use(express.static('pictures'))
-// app.use(express.static(path.join(__dirname, 'assets')))
-// app.use('assets', express.static(process.cwd() + 'assets'));
 
 app.use('/images', express.static(__dirname + '/assets/images'));
 
@@ -98,27 +96,26 @@ app.use('/images', express.static(__dirname + '/assets/images'));
 //   res.render('buttons');
 // });
 
-app.post('/register', async (req, res)=>
-{
-	res.status(200).render('overview', { title: 'overview' });
-	var hashedPasswords;
-	var hashedPassword = await bcrypt.hash(req.body.password, 10);
-	bcrypt.hash(req.body.password, 10, function(err, hash){hashedPassword = hash});
-	
+app.post('/register', async (req, res) => {
+  res.status(200).render('overview', { title: 'overview' });
+  var hashedPasswords;
+  var hashedPassword = await bcrypt.hash(req.body.password, 10);
+  bcrypt.hash(req.body.password, 10, function (err, hash) { hashedPassword = hash });
 
-	//	{bcrypt.hash(req.body.password, salt, function(err, hash)=>{})
-	//};
-	const user = new userSchema(
-	{
-		firstName: req.body.fname,
-		lastName: req.body.lname,
-		email: req.body.email,
-		password: hashedPassword,
-		TLA: req.body.TLA,
-		role: 'visitor'
-	})
-	console.log(hashedPassword);
-	user.save();
+
+  //	{bcrypt.hash(req.body.password, salt, function(err, hash)=>{})
+  //};
+  const user = new userSchema(
+    {
+      firstName: req.body.fname,
+      lastName: req.body.lname,
+      email: req.body.email,
+      password: hashedPassword,
+      TLA: req.body.TLA,
+      role: 'visitor'
+    })
+  console.log(hashedPassword);
+  user.save();
 })
 
 // catch 404 and forward to error handler

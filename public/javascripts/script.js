@@ -92,7 +92,7 @@ btnScrollTo.addEventListener('click', function (e) {
 // 2. Determine what element originated the event
 
 document.querySelector('.nav__links').addEventListener('click', function (e) {
-  e.preventDefault();
+  //e.preventDefault(); --- This prevents the navegation bar to reference other pages
 
   // Matching strategy
   if (e.target.classList.contains('nav__link')) {

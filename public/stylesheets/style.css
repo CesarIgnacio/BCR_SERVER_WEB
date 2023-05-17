@@ -29,7 +29,7 @@ html {
 }
 
 body {
-  font-family:  "Montserrat", arial, verdana;
+  font-family: "Montserrat", arial, verdana;
   font-weight: 300;
   color: #444;
   line-height: 1.9;
@@ -43,6 +43,7 @@ body {
   max-width: 100%;
   max-height: 100%;
 }
+
 .section {
   padding: 15rem 3rem;
   border-top: 1px solid #ddd;
@@ -131,6 +132,7 @@ img {
   width: 100%;
   padding: 0 6rem;
   z-index: 100;
+  margin-top: 8px;
 }
 
 /* nav and stickly class at the same time */
@@ -148,6 +150,7 @@ img {
   display: flex;
   align-items: center;
   list-style: none;
+  flex-wrap: wrap;
 }
 
 .nav__item {
@@ -177,6 +180,58 @@ img {
   color: inherit;
   background-color: var(--color-primary-darker);
   color: #333;
+}
+
+/* Dropdown menu */
+.dropbtn {
+  background-color: #f6f7f8;
+  font-family: "Montserrat", arial, verdana;
+  color: #444;
+  padding: 16px;
+  font-size: 1.7rem;
+  border: none;
+}
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+}
+
+.dropdown-content a {
+  font-family: "Montserrat", arial, verdana;
+  color: #444;
+  padding: 12px 16px;
+  font-size: 16px;
+  text-decoration: none;
+  display: block;
+}
+
+.dropdown-content a:hover {
+  background-color: #ddd;
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+  align-items: center;
+}
+
+a.nav__link.nav__link--btn {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  white-space: nowrap;
+}
+
+.nav__option__icon {
+  width: 32px;
 }
 
 /* HEADER */
@@ -365,18 +420,23 @@ h4 {
 .operations__icon--1 {
   background-color: var(--color-secondary-opacity);
 }
+
 .operations__icon--2 {
   background-color: var(--color-primary-opacity);
 }
+
 .operations__icon--3 {
   background-color: var(--color-tertiary-opacity);
 }
+
 .operations__icon--1 svg {
   fill: var(--color-secondary-darker);
 }
+
 .operations__icon--2 svg {
   fill: var(--color-primary);
 }
+
 .operations__icon--3 svg {
   fill: var(--color-tertiary);
 }
@@ -406,7 +466,7 @@ h4 {
   transition: transform 1s;
 }
 
-.slide > img {
+.slide>img {
   /* Only for images that have different size than slide */
   width: 100%;
   height: 100%;
