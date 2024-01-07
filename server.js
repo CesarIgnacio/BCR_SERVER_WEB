@@ -19,7 +19,7 @@ const app = require('./app');
 // );
 
 mongoose.set('strictQuery', false);
-const mongoDB = "mongodb+srv://abrar_fahim20:Sakib43st@cluster0.n9faamf.mongodb.net/?retryWrites=true&w=majority";
+const mongoDB = "";
 
 //connect to the database with mongoose
 mongoose.connect(mongoDB).then(() => {

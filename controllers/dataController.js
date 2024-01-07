@@ -203,7 +203,7 @@ exports.addDataPost = async (req, res) => {
 			});
 			try {
 				await data.save();
-				// console.log(`${req.file.destination} helooooooooooooooooooooooooooooooooo`);
+				// console.log(`${req.file.destination} hello`);
 				console.log(data.fileDirectory);
 				res.redirect('/upload-success');
 			}
@@ -215,7 +215,7 @@ exports.addDataPost = async (req, res) => {
 		}
 	});
 
-
+	
 };
 
 exports.deletePost = async (req, res) => {
